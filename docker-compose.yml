@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  web_service:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - transmission
+    networks:
+      - player_project
+
+  transmission:
+    image: lscr.io/linuxserver/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - TRANSMISSION_WEB_HOME=/combustion-release/
+      - USER=s1kode
+      - PASS=uspeh123
+    networks:
+      - player_project
+    volumes:
+      - ./transmission_service/config:/config
+      - ./transmission_service/downloads:/downloads
+      - ./transmission_service/watch:/watch
+    #ports:
+    #  - 9091:9091
+    #  - 51413:51413
+    #  - 51413:51413/udp
+    restart: unless-stopped
+
+networks:
+  player_project:
+    driver: bridge
