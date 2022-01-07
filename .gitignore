@@ -1,0 +1,5 @@
+.idea
+.venv
+poetry.toml
+.DS_Store
+*.pyc
