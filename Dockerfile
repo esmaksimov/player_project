@@ -9,4 +9,4 @@ RUN pip3 install poetry && \
     poetry config virtualenvs.create false --local && \
     poetry install
 
-CMD python3 web_service/main.py
+CMD python3 -m web_service.main

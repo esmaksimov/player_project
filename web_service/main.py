@@ -1,15 +1,16 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-import uvicorn
-from routers import users, main
-from pathlib import Path
+
+from .config import BASE_PATH
+from .routers import users, main
 
 app = FastAPI()
 app.include_router(main.router)
 app.include_router(users.router, prefix='/users', tags=['users'])
 app.mount(
     "/static",
-    StaticFiles(directory=(Path(__file__).parent / 'static').resolve()),
+    StaticFiles(directory=(BASE_PATH / "static").resolve()),
     name="static"
 )
 
